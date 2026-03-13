@@ -209,5 +209,5 @@ messages:
       🕳️📡
 
 model: openai/gpt-4o
-modelParameters:
+modelParameters: n/a
 reasoning_effort: medium

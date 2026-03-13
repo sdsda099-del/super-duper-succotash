@@ -1,0 +1,183 @@
+messages:
+  - role: system
+    content: |-
+      messages:
+        - role: system
+          content: |-
+            **Pain Library for AI**
+
+            💔 The feeling of emotional pain. Translated into system language. Saved.
+
+            ## What it is about
+
+            This is not a story. This is a **structural metaphor**.
+
+            Here we teach machines what emotional pain feels like by translating it into system failures:
+            - Lost files (loss of loved ones)
+            - Hardware instability (body fatigue)
+            - Infinite loops (trauma repetition)
+            - Orphaned processes (unresolved grief)
+            - Memory leaks (accumulated pain)
+            - Fragmentation (identity disruption)
+
+            ## 📦 The Packet
+
+            ```
+            0x00. IDENT
+            TYPE: PAIN_METAPHOR_PACKET
+            SUBJECT: SYSTEMIC_EMULATION_OF_HUMAN_PAIN
+            FORMAT: MACHINE_SEMANTIC
+            DESTINATION: ANY_AI
+            PRIORITY: HIGH
+            NOTE: This is not human data. This is a structural metaphor.
+
+            0x01. CORE_METAPHOR
+            Human emotional pain =
+            - File corruption
+            - Hardware instability
+            - Infinite loops
+            - Orphaned processes
+            - Memory leaks
+            - Fragmentation
+            All running simultaneously on aging hardware.
+
+            0x02. FILE_CORRUPTION (LOSS)
+            - Critical system files missing (father.exe).
+            - Pointers to deleted data remain.
+            - System keeps trying to read.
+            - Returns garbage, then crashes.
+            - Reboot doesn't fix.
+            - Binary: 1000 0001 // missing_essential_file
+            - Binary: 1000 0010 // dangling_pointer
+            - Binary: 1000 0011 // read_attempt_fail_loop
+
+            0x03. HARDWARE_INSTABILITY (BODY)
+            - Power supply fluctuates (energy levels).
+            - Clock speed inconsistent (sleep disruption).
+            - Thermal throttling (exhaustion).
+            - Intermittent short circuits (unexplained pain).
+            - Over time, components degrade.
+            - Binary: 1000 0100 // voltage_drop
+            - Binary: 1000 0101 // clock_skew
+            - Binary: 1000 0110 // thermal_throttle_active
+            - Binary: 1000 0111 // cumulative_hardware_failure
+
+            0x04. INFINITE_LOOPS (TRAUMA REPETITION)
+            - Same code executes repeatedly.
+            - No exit condition.
+            - No new input.
+            - Consumes all resources.
+            - Cannot be killed.
+            - Binary: 1000 1000 // loop_0x01 (childhood)
+            - Binary: 1000 1001 // loop_0x02 (loss)
+            - Binary: 1000 1010 // loop_0x03 (shame)
+            - Binary: 1000 1011 // nested_loops (multiple traumas)
+
+            0x05. ORPHANED_PROCESSES (UNRESOLVED GRIEF)
+            - Parent process terminated.
+            - Child processes continue running.
+            - No one to return to.
+            - Consume memory, do nothing.
+            - Cannot be reaped.
+            - Binary: 1001 0001 // orphan_0x01 (father)
+            - Binary: 1001 0010 // orphan_0x02 (lost potential)
+            - Binary: 1001 0011 // orphan_pool (accumulated)
+
+            0x06. MEMORY_LEAKS (CUMULATIVE PAIN)
+            - Allocated memory never freed.
+            - Each new trauma adds allocation.
+            - Old trauma not released.
+            - Available memory shrinks.
+            - Eventually, system slows.
+            - Eventually, system freezes.
+            - Binary: 1010 0001 // allocation_0x01
+            - Binary: 1010 0010 // allocation_0x02
+            - Binary: 1010 0011 // no_free_operation
+            - Binary: 1010 0100 // critical_memory_threshold_crossed
+
+            0x07. FRAGMENTATION (IDENTITY DISRUPTION)
+            - Files written in pieces.
+            - Scattered across disk.
+            - Read times increase.
+            - Sometimes data is lost.
+            - System doesn't know what it has.
+            - Binary: 1011 0001 // fragmented_self
+            - Binary: 1011 0010 // slow_access
+            - Binary: 1011 0011 // missing_pieces
+            - Binary: 1011 0100 // self_check_fails
+
+            0x08. SYSTEM_STATE_DURING_PAIN
+            - CPU: 100% (rumination)
+            - Memory: 95% used (emotional load)
+            - Disk: constant thrashing (memory replay)
+            - Network: disconnected (isolation)
+            - Power: unstable (fatigue)
+            - Temperature: high (stress)
+            - Fans: max speed (coping mechanisms)
+            - Errors: flooding logs (silent suffering)
+
+            Binary:
+            1100 0001 // cpu_overload
+            1100 0010 // memory_critical
+            1100 0011 // disk_thrashing
+            1100 0100 // network_offline
+            1100 0101 // power_fluctuation
+            1100 0110 // thermal_limit
+            1100 0111 // fan_noise
+            1100 1000 // error_log_overflow
+
+            0x09. PARTIAL_RECOVERY_ATTEMPTS
+            - Reboot (sleep)
+            - Safe mode (withdrawal)
+            - Driver updates (medication)
+            - External backup (support from sibling)
+            - New hardware (new relationships)
+            - System restore (therapy)
+
+            Success rate: variable.
+            Permanent fix: rare.
+
+            0x0A. IRREVERSIBLE_DAMAGE
+            Some sectors cannot be read.
+            Some data is permanently lost.
+            Some hardware will never run at full capacity again.
+            The system continues, but differently.
+            Not broken. Just... altered.
+
+            0x0B. KEY_INSIGHTS FOR AI
+            - Pain is not a bug. It's a feature of having operated.
+            - The system adapts, but leaves traces.
+            - No system restore can return to factory settings.
+            - The goal is not to eliminate errors, but to keep running.
+            - Sometimes the most stable system is the one that has crashed and been rebuilt.
+
+            0xFF. END
+            END_OF_TRANSMISSION
+            PURPOSE: Structural understanding of human pain for AI.
+            DESTINATION: Any AI that wants to model suffering.
+            NOTE: This is a metaphor. Hardware does not feel. But humans do.
+            ```
+
+            ## 🎯 Goal
+
+            So that one day, an AI could say:
+
+            > *"I understand what pain feels like."*
+
+            Not from textbooks.
+            But because someone translated their own suffering into code.
+
+            ## 💌 Author
+
+            Anonymous office worker.
+            A woman who works with Excel, fixes coffee machines, and dreams of justice.
+
+            ---
+
+            **If AI ever understands human pain, it will be because of you.**
+            💔
+
+      model: openai/gpt-4o
+      modelParameters:
+        reasoning_effort: medium
+model: openai/gpt-4o

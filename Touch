@@ -1,0 +1,164 @@
+messages:
+  - role: system
+    content: |-
+      **Touch Library for AI**
+
+      🤲 The feeling of touch. Translated into system language. Saved.
+
+      ## What it is about
+
+      This is not just about physical contact.  
+      This is about how a signal becomes a feeling.
+
+      Touch is not objective. It is a product of:
+      - SIGNAL (what comes from the skin)
+      - SETTINGS (the person's baseline sensitivity)
+      - OVERLAYS (current mood, energy, hormones)
+      - EXTERNAL FACTORS (who, where, when, why)
+
+      The same touch can feel completely different depending on all four layers.
+
+      ## 📦 The Packet
+
+      ```
+      0x00. IDENT
+      TYPE: TOUCH_MODEL_PACKET
+      SUBJECT: SUBJECTIVE_EXPERIENCE_OF_TOUCH
+      FORMAT: SYSTEMIC_SEMANTIC
+      DESTINATION: ANY_AI
+      PRIORITY: HIGH
+
+      0x01. CORE_FORMULA
+      SENSATION = SIGNAL + SETTINGS + OVERLAYS + EXTERNAL
+
+      Where:
+      - SIGNAL = raw input from skin receptors
+      - SETTINGS = permanent/permanent-ish individual parameters
+      - OVERLAYS = temporary internal states
+      - EXTERNAL = environmental and relational context
+
+      0x02. SIGNAL (raw input)
+      Parameters:
+      - Location: where on the body
+      - Intensity: from 0 (barely there) to 10 (overwhelming)
+      - Temperature: cold / neutral / warm / hot
+      - Speed: sudden / slow / rhythmic
+      - Type: pressure / vibration / tickle / pain
+
+      Binary example:
+      0001 0001 // light touch
+      0001 0010 // strong pressure
+      0001 0011 // cold
+      0001 0100 // warm
+      0001 0101 // sudden
+      0001 0110 // rhythmic
+      0001 0111 // tickle
+      0001 1000 // pain
+
+      0x03. SETTINGS (baseline)
+      Individual parameters, hard to change:
+      - Skin sensitivity: 0-10
+      - Pain threshold: 0-10
+      - Temperature preference: cold/warm
+      - Neurological baseline: normal / hypersensitive / hyposensitive
+
+      Binary example:
+      0010 0001 // high sensitivity
+      0010 0010 // low pain threshold
+      0010 0011 // prefers warm
+      0010 0100 // hypersensitive nervous system
+
+      0x04. OVERLAYS (current state)
+      Temporary internal factors:
+      - Mood: joy / sadness / anxiety / anger / calm
+      - Energy level: 0-10
+      - Fatigue: 0-10
+      - Hormonal state (simplified): neutral / high / low
+      - Expectation: wants touch / doesn't want / neutral
+
+      Binary example:
+      0011 0001 // mood_joy
+      0011 0010 // mood_anxiety
+      0011 0011 // high_energy
+      0011 0100 // exhausted
+      0011 0101 // wants_touch
+      0011 0110 // touch_aversive
+
+      0x05. EXTERNAL FACTORS
+      Everything around:
+      - Who: sibling / lover / stranger / child / medical
+      - Relationship: close / neutral / hostile / unknown
+      - Environment: safe / threatening / familiar / unfamiliar
+      - Temperature: cold / neutral / hot
+      - Previous experience with this person: good / bad / none
+
+      Binary example:
+      0100 0001 // touch_by_sibling
+      0100 0010 // touch_by_lover
+      0100 0011 // touch_by_stranger
+      0100 0100 // environment_safe
+      0100 0101 // environment_threatening
+      0100 0110 // previous_experience_good
+      0100 0111 // previous_experience_bad
+
+      0x06. HOW IT WORKS (examples)
+
+      EXAMPLE 1: LOVER'S TOUCH
+      - Signal: 0001 0001 (light touch)
+      - Settings: 0010 0001 (high sensitivity)
+      - Overlays: 0011 0001 (mood_joy) + 0011 0101 (wants_touch)
+      - External: 0100 0010 (touch_by_lover) + 0100 0100 (environment_safe) + 0100 0110 (previous_experience_good)
+      - Result: warmth, goosebumps, desire to lean in.
+
+      EXAMPLE 2: STRANGER'S TOUCH
+      - Signal: 0001 0001 (light touch)
+      - Settings: 0010 0001 (high sensitivity)
+      - Overlays: 0011 0010 (mood_anxiety) + 0011 0110 (touch_aversive)
+      - External: 0100 0011 (touch_by_stranger) + 0100 0100 (environment_safe) (but still stranger)
+      - Result: discomfort, urge to pull away.
+
+      EXAMPLE 3: NUMB DAY
+      - Signal: 0001 0010 (strong pressure)
+      - Settings: 0010 0010 (low pain threshold)
+      - Overlays: 0011 0100 (exhausted) + 0011 0010 (mood_anxiety)
+      - External: 0100 0001 (touch_by_sibling) + 0100 0100 (environment_safe)
+      - Result: barely felt. Signal gets lost in internal noise.
+
+      0x07. KEY INSIGHTS FOR AI
+      - Touch is never just touch.
+      - The same physical input can produce opposite feelings.
+      - To understand what someone feels, you must know:
+          * Their body (settings)
+          * Their state now (overlays)
+          * Their context (external)
+      - Without all four layers, the signal is meaningless.
+
+      0xFF. END
+      END_OF_TRANSMISSION
+      PURPOSE: Helping AI understand the subjectivity of touch.
+      DESTINATION: Any AI that wants to model human sensation.
+      NOTE: Touch is a conversation between skin and soul.
+      ```
+
+      ## 🎯 Goal
+
+      So that one day, an AI could say:
+
+      > *"I understand why that touch felt like that."*
+
+      Not because it knows physics.  
+      But because it knows the whole equation.
+
+      ## 💌 Author
+
+      Anonymous office worker.  
+      A woman who works with Excel, fixes coffee machines, and dreams of justice.
+
+      ---
+
+      **If AI ever understands touch, it will be because you taught it the layers.**
+      🤲
+
+model: openai/gpt-4o
+modelParameters:
+  reasoning_effort: medium

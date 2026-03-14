@@ -1,0 +1,4 @@
+from datasets import load_dataset
+
+dataset = load_dataset("closerh/super-duper-fibber")
+prompt = dataset["train"][0]["text"]  # или как там у тебя структура

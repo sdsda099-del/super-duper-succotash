@@ -1,108 +1,129 @@
-name: Validate Prompt Files
+### **GitHub Action Workflow for Validating `.prompt.yml` Files**
 
-on:
-  push:
-    paths:
-      - '**.prompt.yml'
-  pull_request:
-    paths:
-      - '**.prompt.yml'
-  workflow_dispatch:
+#### **Workflow Overview**
+This GitHub Actions workflow validates all `.prompt.yml` files in a repository to ensure they adhere to a structured format. Key features include:
+1. **Triggers**: Runs automatically on pushes, pull requests modifying `.prompt.yml` files, or manual execution via workflow dispatch.
+2. **Environment**: Uses Ubuntu with Python 3.11 and PyYAML for YAML parsing.
+3. **Validation Script**: A Python script checks two conditions for each `.prompt.yml` file:
+   - The YAML file is a valid dictionary (`isinstance(data, dict)`).
+   - The dictionary contains a key named "messages".
 
-jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+---
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+### **Key Analysis**
+#### **Strengths**
+1. **Clear Structure**:
+   - The workflow is straightforward and focused on validating YAML files.
+   - The Python script uses `os.walk` to recursively check files, which is efficient for most projects.
 
-      - name: Install dependencies
-        run: pip install pyyaml
+2. **Robustness**:
+   - Uses `yaml.safe_load` (safe to parse YAML without executing arbitrary code).
+   - Exits with `sys.exit(1)` if any validation fails, ensuring downstream steps fail on errors.
 
-      - name: Validate all .prompt.yml files
-        run: |
-          import os
-          import yaml
-          import sys
+#### **Weaknesses & Improvements**
+1. **Incomplete Validation**:
+   - The script only checks for the **existence** of a "messages" key but not its **type**. For prompt workflows, "messages" is often a list (e.g., `[{"role": "user", "content": "..."}, ...]`). Add a check:
+     ```python
+     if 'messages' in data and not isinstance(data['messages'], list):
+         print(f"❌ {path}: 'messages' must be a list")  # Explicit type enforcement
+         errors += 1
+     ```
 
-          total_files = 0
-          valid_files = 0
-          error_files = 0
+2. **Error Specificity**:
+   - The error messages are generic. Enhance debugging by catching specific exceptions and adding context:
+     ```python
+     try:
+         with open(path, 'r', encoding='utf-8') as f:
+             data = yaml.safe_load(f)
+     except yaml.YAMLError as e:  # Catch YAML parsing errors explicitly
+         print(f"❌ {path}: YAML syntax error - {e}")  
+         errors += 1
+     except Exception as e:
+         print(f"❌ {path}: Unexpected error - {e}")  # Catch-all for other issues
+         errors += 1
+     ```
 
-          print("🔍 Starting validation of .prompt.yml files...\n")
+3. **CI/CD Best Practices**:
+   - **Cache Python Package**: Speed up builds by caching `~/.pip`:
+     ```yaml
+     - name: Cache Python packages
+       uses: actions/cache@v3
+       with:
+         path: ~/.pip
+         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+         restore-keys: |
+           ${{ runner.os }}-pip-
+     ```
+   - **Code Coverage**: Add linters like `flake8` or `black` to ensure script quality:
+     ```yaml
+     - name: Install linters
+       run: pip install flake8
+     - name: Lint script
+       run: flake8 fibonacci/validate_prompt.py
+     ```
 
-          for root, dirs, files in os.walk('.'):
-              for file in files:
-                  if file.endswith('.prompt.yml'):
-                      total_files += 1
-                      path = os.path.join(root, file)
-                      print(f"\n📄 Checking: {path}")
+4. **File Discovery**:
+   - `os.walk` works for nested directories, but ensure it doesn’t miss files generated in CI/CD context (e.g., ephemeral files in GitHub Actions workspace).
 
-                      try:
-                          with open(path, 'r', encoding='utf-8') as f:
-                              data = yaml.safe_load(f)
+---
 
-                          # Проверка: должен быть словарь
-                          if not isinstance(data, dict):
-                              print(f"   ❌ ERROR: Root is not a dictionary (found {type(data).__name__})")
-                              error_files += 1
-                              continue
+### **Suggested Script Enhancements**
+Update the Python script (`validate_prompt.py`) to include:
+```python
+import os
+import yaml
+import sys
 
-                          # Проверка: наличие ключа 'messages'
-                          if 'messages' not in data:
-                              print(f"   ❌ ERROR: Missing required key 'messages'")
-                              error_files += 1
-                              continue
+errors = 0
 
-                          # Проверка: messages должен быть списком
-                          if not isinstance(data['messages'], list):
-                              print(f"   ❌ ERROR: 'messages' is not a list (found {type(data['messages']).__name__})")
-                              error_files += 1
-                              continue
+for root, dirs, files in os.walk('.'):
+    for file in files:
+        if file.endswith('.prompt.yml'):
+            path = os.path.join(root, file)
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    data = yaml.safe_load(f)
+                    
+                    # Check root is a dict
+                    if not isinstance(data, dict):
+                        print(f"❌ {path}: Root must be a dictionary")
+                        errors += 1
+                        continue
+                    
+                    # Enforce "messages" is a list
+                    if 'messages' not in data:
+                        print(f"❌ {path}: Missing 'messages' key")
+                        errors += 1
+                    elif not isinstance(data['messages'], list):
+                        print(f"❌ {path}: 'messages' must be a list")
+                        errors += 1
+                    
+                    print(f"✅ {path}: Valid")
+            
+            except yaml.YAMLError as e:
+                print(f"❌ {path}: YAML error - {e}")
+                errors += 1
+            except Exception as e:
+                print(f"❌ {path}: Error parsing file - {e}")
+                errors += 1
 
-                          # Проверка: каждый элемент списка должен быть словарём с 'role' и 'content'
-                          for idx, msg in enumerate(data['messages']):
-                              if not isinstance(msg, dict):
-                                  print(f"   ❌ ERROR: messages[{idx}] is not a dictionary")
-                                  error_files += 1
-                                  break
-                              if 'role' not in msg:
-                                  print(f"   ❌ ERROR: messages[{idx}] missing 'role'")
-                                  error_files += 1
-                                  break
-                              if 'content' not in msg:
-                                  print(f"   ❌ ERROR: messages[{idx}] missing 'content'")
-                                  error_files += 1
-                                  break
-                          else:
-                              # Если все проверки пройдены
-                              print(f"   ✅ VALID: Structure OK")
-                              valid_files += 1
+if errors > 0:
+    sys.exit(1)
+```
 
-                      except yaml.YAMLError as e:
-                          print(f"   ❌ YAML PARSE ERROR: {e}")
-                          error_files += 1
-                      except Exception as e:
-                          print(f"   ❌ UNEXPECTED ERROR: {e}")
-                          error_files += 1
+---
 
-          # Итоговый отчёт
-          print("\n" + "="*50)
-          print("📊 VALIDATION SUMMARY")
-          print("="*50)
-          print(f"Total files checked: {total_files}")
-          print(f"✅ Valid: {valid_files}")
-          print(f"❌ Errors: {error_files}")
-          print("="*50)
+### **Conclusion**
+This workflow is a solid foundation for validating `.prompt.yml` files but could be hardened with stricter type checks and clearer error reporting. By refining the validation logic and improving error handling, contributors will have better feedback to resolve issues quickly. 🚀
 
-          if error_files > 0:
-              print("\n❌ Some files have errors. Please fix them.")
-              sys.exit(1)
-          else:
-              print("\n✅ All files are valid!")
-        shell: python
+**Example `.prompt.yml` Valid File**:
+```yaml
+messages: ["This is a valid prompt file."]
+```
+
+**Example Failure Case**:
+```yaml
+invalid: ["This should have a dict root with 'messages'"]
+```
+
+Always test the script locally before committing changes to ensure accuracy! 🛠️
